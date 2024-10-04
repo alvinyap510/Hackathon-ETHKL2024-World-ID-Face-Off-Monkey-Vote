@@ -1,0 +1,10 @@
+{
+  "name": "world-id-unique-voting-smart-contracts",
+  "version": "1.0.0",
+  "description": "The smart contracts for World ID Unique Voting",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  }
+}
