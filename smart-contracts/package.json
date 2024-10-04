@@ -5,6 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.2"
+    "@openzeppelin/contracts": "^5.0.2",
+    "@worldcoin/world-id-contracts": "^0.1.1"
   }
 }

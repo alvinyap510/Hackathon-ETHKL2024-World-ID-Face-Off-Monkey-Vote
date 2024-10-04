@@ -3,11 +3,14 @@ pragma solidity 0.8.24;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {VotingTopic} from "./VotingTopic.sol";
+import {IWorldID} from "@worldcoin/world-id-contracts/src/interfaces/IWorldID.sol";
 
 contract VotingGovernance is Ownable {
     /*------ CONTRACT VARIABLES ------*/
-    mapping(address => bool) isAdmin;
-    mapping(address => bool) isWorldIdVerified;
+    IWorldID public worldIdRouter;
+    mapping(address => bool) public isAdmin;
+    mapping(address => bool) public isWorldIdVerified;
+    address[] public allVotingTopics;
 
     /*------ EVENTS ------*/
     event SetAdmin(address admin, bool isAdmin);
@@ -16,13 +19,15 @@ contract VotingGovernance is Ownable {
     /*------ MODIFIER ------*/
 
     modifier onlyAdmin() {
-        require(isAdmin[msg.sender], "VotingGovernance: Not Admin");
+        require(isAdmin[msg.sender] || msg.sender == owner(), "VotingGovernance: Not Admin");
         _;
     }
 
     /*------ CONSTRUCTOR ------*/
 
-    constructor() Ownable(msg.sender) {}
+    constructor(address _worldIdRouter) Ownable(msg.sender) {
+        worldIdRouter = IWorldID(_worldIdRouter);
+    }
 
     /*------ ADMIN FUNCTIONS ------*/
 
@@ -41,8 +46,30 @@ contract VotingGovernance is Ownable {
         emit NewVotingTopic(address(newVotingTopic), _votingTopic, _startTime, _endTime);
     }
 
+    function verifyUser(
+        address _user,
+        uint256 _root,
+        uint256 _groupId,
+        uint256 _signalHash,
+        uint256 _nullifierHash,
+        uint256 _externalNullifierHash,
+        uint256[8] calldata _proof
+    ) external {
+        // worldIdRouter.verifyProof(_root, _groupId, _signalHash, _nullifierHash, _externalNullifierHash, _proof);
+        // isWorldIdVerified[_user] = true;
+        try worldIdRouter.verifyProof(_root, _groupId, _signalHash, _nullifierHash, _externalNullifierHash, _proof) {
+            isWorldIdVerified[_user] = true;
+        } catch Error(string memory reason) {
+            revert(reason);
+        }
+    }
+
     /*------ VIEW FUNCTIONS ------*/
     function isUserWorldIdVerified(address _user) public view returns (bool) {
         return isWorldIdVerified[_user];
+    }
+
+    function getAllVotiingTopics() external view returns (address[] memory) {
+        return allVotingTopics;
     }
 }
