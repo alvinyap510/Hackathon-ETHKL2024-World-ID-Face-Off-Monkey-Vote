@@ -2,7 +2,8 @@
 
 import { IDKitWidget, ISuccessResult } from '@worldcoin/idkit'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, type BaseError } from 'wagmi'
-import abi from "@/data/abi.js"// get the user's wallet address
+import { decodeAbiParameters, parseAbiParameters } from 'viem'
+import { abi } from "@/data/abi.json"// get the user's wallet address
 
 const WorldId = () => {
     const account = useAccount() 
@@ -16,12 +17,15 @@ const WorldId = () => {
 				address: "0xe97E8AFB8bE1CA1157916b2bd4dB24c7fB9fc7E3",
 				account: account.address,
 				abi,
-				functionName: 'createNewVoting',
+				functionName: 'verifyUser',
 				args: [
-					"test",
-                    BigInt(1),
-                    BigInt(1),
-                    ["test1", "test2"]
+					account.address!,
+					BigInt(proof!.merkle_root),
+					BigInt(proof!.nullifier_hash),
+					decodeAbiParameters(
+						parseAbiParameters('uint256[8]'),
+						proof!.proof as `0x${string}`
+					)[0],
 				],
 			})
 		} catch (error) {throw new Error((error as BaseError).shortMessage)}
@@ -37,6 +41,7 @@ const WorldId = () => {
             >
                 {({ open }) => <button onClick={open}>Verify with World ID</button>}
             </IDKitWidget>
+            {hash && <p>Transaction Hash: {hash}</p>}
         </>
     )
 }
