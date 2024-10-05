@@ -75,6 +75,7 @@ contract VotingGovernance is Ownable {
 
     /*------ VIEW FUNCTIONS ------*/
     function isUserWorldIdVerified(address _user) public view returns (bool) {
+        // return true;
         return isWorldIdVerified[_user];
     }
 
