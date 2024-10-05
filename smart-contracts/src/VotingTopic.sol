@@ -147,4 +147,18 @@ contract VotingTopic is Ownable {
     function returnAllOptions() external view returns (Option[] memory _allOptions) {
         return options;
     }
+
+    function readVotingTopic()
+        external
+        view
+        returns (
+            string memory _votingTopic,
+            uint256 _startVoting,
+            uint256 _endVoting,
+            Option[] memory _options,
+            uint256 _faceOffPairsLength
+        )
+    {
+        return (votingTopic, startTime, endTime, options, faceOffPairs.length);
+    }
 }
