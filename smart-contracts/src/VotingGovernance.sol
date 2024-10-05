@@ -63,6 +63,7 @@ contract VotingGovernance is Ownable {
     }
 
     function verifyUser(address _signal, uint256 _root, uint256 _nullifierHash, uint256[8] calldata _proof) external {
+        require(!isWorldIdVerified[_signal], "VotingGovernance: Address already verified with World ID");
         try worldIdRouter.verifyProof(
             _root, 1, abi.encodePacked(_signal).hashToField(), _nullifierHash, externalNullifier, _proof
         ) {
