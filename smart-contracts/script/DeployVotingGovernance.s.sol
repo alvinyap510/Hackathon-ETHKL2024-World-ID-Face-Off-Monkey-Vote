@@ -29,17 +29,43 @@ contract DeployVotingGovernance is Script {
         console.log("Initial admin set:", initialAdmin);
 
         // Create an initial voting topic
-        string memory initialTopic = "Your Favorite Crypto Assets";
-        uint256 startTime = block.timestamp;
-        uint256 endTime = startTime + 7 days;
-        string[] memory options = new string[](3);
-        options[0] = "Bitcoin";
-        options[1] = "Ethereum";
-        options[2] = "Solana";
+        string[] memory options_a = new string[](3);
+        options_a[0] = "Bitcoin";
+        options_a[1] = "Ethereum";
+        options_a[2] = "Solana";
 
-        votingGovernance.createNewVoting(initialTopic, startTime, endTime, options);
+        votingGovernance.createNewVoting(
+            "Your Favorite Crypto Assets", block.timestamp, block.timestamp + 7 days, options_a
+        );
 
         console.log("Initial voting topic created");
+
+        // Create an 2nd voting topic
+        string[] memory options_b = new string[](4);
+        options_b[0] = "Eason";
+        options_b[1] = "Danny";
+        options_b[2] = "Harith";
+        options_b[3] = "TY";
+
+        votingGovernance.createNewVoting(
+            "Your Favorite ETHKL Contributor", block.timestamp, block.timestamp + 3 days, options_b
+        );
+
+        console.log("Initialize second voting topic");
+
+        // Create an 3rd voting topic
+
+        string[] memory options_c = new string[](4);
+        options_b[0] = "Eason";
+        options_b[1] = "Danny";
+        options_b[2] = "Harith";
+        options_b[3] = "TY";
+
+        votingGovernance.createNewVoting(
+            "Your Favorite ETHKL Contributor", block.timestamp, block.timestamp + 3 days, options_b
+        );
+
+        console.log("Initialize second voting topic");
 
         vm.stopBroadcast();
     }
