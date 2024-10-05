@@ -4,7 +4,7 @@ out = "out"
 libs = ["lib"]
 
 [etherscan]
-scroll = { key = "${SCROLL_ETHERSCAN_API}" }
-op = { key = "${OP_ETHERSCAN_API}" }
+# scroll = { key = "${SCROLL_ETHERSCAN_API}" }
+# op = { key = "${OP_ETHERSCAN_API}" }
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

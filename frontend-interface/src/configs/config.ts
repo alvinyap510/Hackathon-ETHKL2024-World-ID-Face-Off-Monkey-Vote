@@ -18,6 +18,8 @@ export const contractAddresses = {
     // 5: "0x900d06d92367cb53aF2e5C8D1dB07953B714a583", // Goerli Testnet
     // 137: "0x1234567890abcdef1234567890abcdef12345678", // Polygon Mainnet
     // Add more chain IDs and addresses as needed
+    3441006: "0x90B1A018bC60D7482910EeB2E253D6d780acBBDa",
+    534351: "0x9dCd7374Add0216965180e014710D680b811D782",
     11155420: "0xBe1DDf3961aCc11D8489717a8c658a37ab44EBA3",
   },
 };

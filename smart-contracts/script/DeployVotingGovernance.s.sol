@@ -28,17 +28,17 @@ contract DeployVotingGovernance is Script {
 
         console.log("Initial admin set:", initialAdmin);
 
-        // Create an initial voting topic
-        string[] memory options_a = new string[](3);
-        options_a[0] = "Bitcoin";
-        options_a[1] = "Ethereum";
-        options_a[2] = "Solana";
+        // // Create an initial voting topic
+        // string[] memory options_a = new string[](3);
+        // options_a[0] = "Bitcoin";
+        // options_a[1] = "Ethereum";
+        // options_a[2] = "Solana";
 
-        votingGovernance.createNewVoting(
-            "Your Favorite Crypto Assets", block.timestamp, block.timestamp + 7 days, options_a
-        );
+        // votingGovernance.createNewVoting(
+        //     "Your Favorite Crypto Assets", block.timestamp, block.timestamp + 7 days, options_a
+        // );
 
-        console.log("Initial voting topic created");
+        // // console.log("Initial voting topic created");
 
         // Create an 2nd voting topic
         string[] memory options_b = new string[](4);
@@ -49,6 +49,20 @@ contract DeployVotingGovernance is Script {
 
         votingGovernance.createNewVoting(
             "Your Favorite ETHKL Contributor", block.timestamp, block.timestamp + 3 days, options_b
+        );
+
+        // console.log("Initialize second voting topic");
+
+        // Create an 2nd voting topic
+        string[] memory options_c = new string[](5);
+        options_c[0] = "Vitalik";
+        options_c[1] = "CZ";
+        options_c[2] = "Justin-Sun";
+        options_c[3] = "Arthur-Hayes";
+        options_c[4] = "Andre-Cronje";
+
+        votingGovernance.createNewVoting(
+            "Your Favorite OG In Crypto", block.timestamp, block.timestamp + 3 days, options_c
         );
 
         console.log("Initialize second voting topic");
@@ -64,3 +78,4 @@ contract DeployVotingGovernance is Script {
 // forge script script/DeployVotingGovernance.s.sol:DeployVotingGovernance --rpc-url https://sepolia-rpc.scroll.io --broadcast --verify --etherscan-api-key 8654MU4RD3WIRD3QM342QG35BYDP9CVAEG --verifier-url https://api-sepolia.scrollscan.com/api -vvvv
 
 // Manta Sepolia
+// forge script script/DeployVotingGovernance.s.sol:DeployVotingGovernance --rpc-url https://pacific-rpc.sepolia-testnet.manta.network/http --broadcast
