@@ -1,5 +1,5 @@
 'use client'
-import { Box, SimpleGrid, Spinner, Card, CardBody, CardFooter, Image, Stack, Divider, Button, Heading, Flex } from '@chakra-ui/react'
+import { Box, SimpleGrid, Spinner, Card, CardBody, CardFooter, Image, Stack, Divider, Button, Heading, Flex, Text } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import VotingGovernance from "../../data/VotingGovernance.json"
 import VotingTopic from "../../data/VotingTopic.json"
@@ -31,7 +31,8 @@ export default function Topics() {
         try {
           const topics = await readContract(config, {
             abi: VotingGovernance.abi,
-            address: "0xacd6336af0fAB0BD7F25a7edd53Ef581596306Af", 
+            // address: "0xacd6336af0fAB0BD7F25a7edd53Ef581596306Af", 
+            address: "0x900d06d92367cb53aF2e5C8D1dB07953B714a583", 
             functionName: 'getAllVotingTopics',
             args: [], // if the function requires arguments, add them here
           }) as `0x${string}`[]  // Explicitly casting the result to string[]
@@ -74,48 +75,48 @@ export default function Topics() {
 // console.log(topicDetails)
 const renderCards = () => {
     return topicDetails.map((topic, index) => (
-    //   <Box
-    //     key={index}
-    //     border="1px solid #ddd"
-    //     borderRadius="8px"
-    //     padding="16px"
-    //     margin="8px"
-    //     boxShadow="md"
-    //   >
-    //     <Text fontWeight="bold">Topic #{index + 1}</Text>
-    //     <Text>Voting Topic: {topic.votingTopic}</Text>
-    //     <Text>Start Time: {new Date(Number(topic.startVotingTime) * 1000).toLocaleString()}</Text>
-    //     <Text>End Time: {new Date(Number(topic.endVotingTime) * 1000).toLocaleString()}</Text>
-    //     <Text>Number of Face-off Pairs: {topic.faceOffPairsLength}</Text>
-    //     <Text fontWeight="bold">Options:</Text>
-    //     {topic.options.map((option, optionIndex) => (
-    //       <Box key={optionIndex} ml={4}>
-    //         <Text>{option.optionName} - Wins: {option.wins.toString()}, Loses: {option.loses.toString()}</Text>
-    //       </Box>
-    //     ))}
-    //   </Box>
-    <Card maxW='sm' key={index}>
-        <CardBody>
-            <Image
-            src={`/topics/${topic.votingTopic.replaceAll(" ", "-")}/dp.jpg`}
-            alt={topic.votingTopic}
-            borderRadius='lg'
-            />
-            <Stack mt='6' spacing='3'>
-            <Heading size='md'>{topic.votingTopic}</Heading>
-            </Stack>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-            <Flex justifyContent='center' w='100%'>
-                <NextLink href={`/vote/${topic.votingTopic.replaceAll(" ", "-")}`}>
-                    <Button variant='solid' colorScheme='blue'>
-                        Enter
-                    </Button>  
-                </NextLink>
-            </Flex>
-        </CardFooter>
-    </Card>
+      <Box
+        key={index}
+        border="1px solid #ddd"
+        borderRadius="8px"
+        padding="16px"
+        margin="8px"
+        boxShadow="md"
+      >
+        <Text fontWeight="bold">Topic #{index + 1}</Text>
+        <Text>Voting Topic: {topic.votingTopic}</Text>
+        <Text>Start Time: {new Date(Number(topic.startVotingTime) * 1000).toLocaleString()}</Text>
+        <Text>End Time: {new Date(Number(topic.endVotingTime) * 1000).toLocaleString()}</Text>
+        <Text>Number of Face-off Pairs: {topic.faceOffPairsLength}</Text>
+        <Text fontWeight="bold">Options:</Text>
+        {topic.options.map((option, optionIndex) => (
+          <Box key={optionIndex} ml={4}>
+            <Text>{option.optionName} - Wins: {option.wins.toString()}, Loses: {option.loses.toString()}</Text>
+          </Box>
+        ))}
+      </Box>
+    // <Card maxW='sm' key={index}>
+    //     <CardBody>
+    //         <Image
+    //         src={`/topics/${topic.votingTopic.replaceAll(" ", "-")}/dp.jpg`}
+    //         alt={topic.votingTopic}
+    //         borderRadius='lg'
+    //         />
+    //         <Stack mt='6' spacing='3'>
+    //         <Heading size='md'>{topic.votingTopic}</Heading>
+    //         </Stack>
+    //     </CardBody>
+    //     <Divider />
+    //     <CardFooter>
+    //         <Flex justifyContent='center' w='100%'>
+    //             <NextLink href={`/vote/${topic.votingTopic.replaceAll(" ", "-")}`}>
+    //                 <Button variant='solid' colorScheme='blue'>
+    //                     Enter
+    //                 </Button>  
+    //             </NextLink>
+    //         </Flex>
+    //     </CardFooter>
+    // </Card>
     ));
   };
   
