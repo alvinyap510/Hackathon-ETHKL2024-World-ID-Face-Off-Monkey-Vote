@@ -10,7 +10,7 @@ const WorldId = () => {
     const { data: hash, isPending, error, writeContractAsync } = useWriteContract()
 
     const onSuccess = async (proof: ISuccessResult) => {
-        alert("Success")
+        alert("Wait for a little bit for the transaction to be initiated from your wallet")
         console.log(proof)
         try {
 			await writeContractAsync({
