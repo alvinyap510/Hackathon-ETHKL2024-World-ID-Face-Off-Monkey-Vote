@@ -5,12 +5,26 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {VotingTopic} from "./VotingTopic.sol";
 import {IWorldID} from "@worldcoin/world-id-contracts/src/interfaces/IWorldID.sol";
 
+library ByteHasher {
+    /// @dev Creates a keccak256 hash of a bytestring.
+    /// @param value The bytestring to hash
+    /// @return The hash of the specified value
+    /// @dev >> 8 makes sure that the result is included in our field
+    function hashToField(bytes memory value) internal pure returns (uint256) {
+        return uint256(keccak256(abi.encodePacked(value))) >> 8;
+    }
+}
+
 contract VotingGovernance is Ownable {
+    /*------ CONTRACT VARIABLES ------*/
+    using ByteHasher for bytes;
+
     /*------ CONTRACT VARIABLES ------*/
     IWorldID public worldIdRouter;
     mapping(address => bool) public isAdmin;
     mapping(address => bool) public isWorldIdVerified;
     address[] public allVotingTopics;
+    uint256 internal immutable externalNullifier;
 
     /*------ EVENTS ------*/
     event SetAdmin(address admin, bool isAdmin);
@@ -25,8 +39,9 @@ contract VotingGovernance is Ownable {
 
     /*------ CONSTRUCTOR ------*/
 
-    constructor(address _worldIdRouter) {
+    constructor(address _worldIdRouter, string memory _appId, string memory _actionId) {
         worldIdRouter = IWorldID(_worldIdRouter);
+        externalNullifier = abi.encodePacked(abi.encodePacked(_appId).hashToField(), _actionId).hashToField();
     }
 
     /*------ ADMIN FUNCTIONS ------*/
@@ -47,19 +62,11 @@ contract VotingGovernance is Ownable {
         emit NewVotingTopic(address(newVotingTopic), _votingTopic, _startTime, _endTime);
     }
 
-    function verifyUser(
-        address _user,
-        uint256 _root,
-        uint256 _groupId,
-        uint256 _signalHash,
-        uint256 _nullifierHash,
-        uint256 _externalNullifierHash,
-        uint256[8] calldata _proof
-    ) external {
-        // worldIdRouter.verifyProof(_root, _groupId, _signalHash, _nullifierHash, _externalNullifierHash, _proof);
-        // isWorldIdVerified[_user] = true;
-        try worldIdRouter.verifyProof(_root, _groupId, _signalHash, _nullifierHash, _externalNullifierHash, _proof) {
-            isWorldIdVerified[_user] = true;
+    function verifyUser(address _signal, uint256 _root, uint256 _nullifierHash, uint256[8] calldata _proof) external {
+        try worldIdRouter.verifyProof(
+            _root, 1, abi.encodePacked(_signal).hashToField(), _nullifierHash, externalNullifier, _proof
+        ) {
+            isWorldIdVerified[_signal] = true;
         } catch Error(string memory reason) {
             revert(reason);
         }
@@ -70,7 +77,7 @@ contract VotingGovernance is Ownable {
         return isWorldIdVerified[_user];
     }
 
-    function getAllVotiingTopics() public view returns (address[] memory) {
+    function getAllVotingTopics() public view returns (address[] memory) {
         return allVotingTopics;
     }
 }
