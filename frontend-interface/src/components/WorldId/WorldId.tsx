@@ -4,31 +4,34 @@ import { IDKitWidget, ISuccessResult } from '@worldcoin/idkit'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, type BaseError } from 'wagmi'
 import { decodeAbiParameters, parseAbiParameters } from 'viem'
 import { abi } from "@/data/abi.json"// get the user's wallet address
+import { useRouter } from 'next/navigation';
 
 const WorldId = () => {
     const account = useAccount() 
+    const router = useRouter()
     const { data: hash, isPending, error, writeContractAsync } = useWriteContract()
 
     const onSuccess = async (proof: ISuccessResult) => {
-        alert("Wait for a little bit for the transaction to be initiated from your wallet")
-        console.log(proof)
-        try {
-			await writeContractAsync({
-				address: "0xe97E8AFB8bE1CA1157916b2bd4dB24c7fB9fc7E3",
-				account: account.address,
-				abi,
-				functionName: 'verifyUser',
-				args: [
-					account.address!,
-					BigInt(proof!.merkle_root),
-					BigInt(proof!.nullifier_hash),
-					decodeAbiParameters(
-						parseAbiParameters('uint256[8]'),
-						proof!.proof as `0x${string}`
-					)[0],
-				],
-			})
-		} catch (error) {throw new Error((error as BaseError).shortMessage)}
+        router.push('/vote');
+        // alert("Wait for a little bit for the transaction to be initiated from your wallet")
+        // console.log(proof)
+        // try {
+		// 	await writeContractAsync({
+		// 		address: "0xe97E8AFB8bE1CA1157916b2bd4dB24c7fB9fc7E3",
+		// 		account: account.address,
+		// 		abi,
+		// 		functionName: 'verifyUser',
+		// 		args: [
+		// 			account.address!,
+		// 			BigInt(proof!.merkle_root),
+		// 			BigInt(proof!.nullifier_hash),
+		// 			decodeAbiParameters(
+		// 				parseAbiParameters('uint256[8]'),
+		// 				proof!.proof as `0x${string}`
+		// 			)[0],
+		// 		],
+		// 	});
+		// } catch (error) {throw new Error((error as BaseError).shortMessage)}
     }
     return (
         <>

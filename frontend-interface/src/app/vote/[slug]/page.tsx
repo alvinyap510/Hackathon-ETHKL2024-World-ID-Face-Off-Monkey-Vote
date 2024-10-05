@@ -93,6 +93,8 @@ const VoteSlugPage: React.FC = () => {
     null
   );
 
+  const [resultOptions, setResultOptions] = useState<Option[]>([]);
+  const [loadingResults, setLoadingResults] = useState(false);
   useEffect(() => {
     const fetchTopics = async () => {
       try {
@@ -209,6 +211,26 @@ const VoteSlugPage: React.FC = () => {
     }
   };
 
+  const fetchLatestResults = async () => {
+    if (!votingTopicAddress) return;
+
+    setLoadingResults(true);
+    try {
+      const options = await readContract(config, {
+        abi: VotingTopic.abi,
+        address: votingTopicAddress  as `0x${string}`,
+        functionName: "returnAllOptions",
+        args: [],
+      }) as Option[];
+
+      setResultOptions(options);
+    } catch (error) {
+      console.error("Error fetching latest results:", error);
+    } finally {
+      setLoadingResults(false);
+    }
+  };
+  
   return (
     <div>
       <h1>Vote Page for {formattedSlug}</h1>
@@ -223,21 +245,32 @@ const VoteSlugPage: React.FC = () => {
             matches={matches}
             onFinish={handleFinishVoting}
           />
-          {/* <h2>Topic Details:</h2>
-          {topicDetails.map((topic, index) => (
-            topic.votingTopic.toLowerCase() === formattedSlug.toLowerCase() && (
-              <div key={index}>
-                <h3>{topic.votingTopic}</h3>
-                <h4>Options:</h4>
-                <ul>
-                  {topic.options.map((option, i) => (
-                    <li key={i}>{option.optionName} - Wins: {option.wins}, Loses: {option.loses}</li>
-                  ))}
-                </ul>
-                <p>Face Off Pairs Length: {topic.faceOffPairsLength}</p>
-              </div>
-            )
-          ))} */}
+          {/* Button to fetch the latest results */}
+          <Button onClick={fetchLatestResults} isLoading={loadingResults} mt={4}>
+            Show Latest Results
+          </Button>
+
+          {/* Display the fetched results */}
+          {resultOptions.length > 0 && (
+            <Box mt={4}>
+              <Heading size="md">Latest Voting Results</Heading>
+              {resultOptions.map((option, index) => {
+                const totalVotes = option.wins + option.loses;
+                const winRate = totalVotes > 0 ? (Number(option.wins) / Number(totalVotes)) * 100 : 0;
+                console.log(option)
+                return (
+                  <Card key={index} mt={2}>
+                    <CardBody>
+                      <Heading size="sm">{option.optionName}</Heading>
+                      <p>Wins: {Number(option.wins)}</p>
+                      <p>Loses: {Number(option.loses)}</p>
+                      <p>Win Rate: {winRate.toFixed(2)}%</p>
+                    </CardBody>
+                  </Card>
+                );
+              })}
+            </Box>
+          )}
         </div>
       )}
     </div>
