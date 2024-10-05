@@ -5,6 +5,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@layerzerolabs/lz-evm-oapp-v2": "^3.0.1",
+    "@layerzerolabs/lz-evm-protocol-v2": "^3.0.1",
     "@openzeppelin/contracts": "^5.0.2",
     "@worldcoin/world-id-contracts": "^0.1.1"
   }

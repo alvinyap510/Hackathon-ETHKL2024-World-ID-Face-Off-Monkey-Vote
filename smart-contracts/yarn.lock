@@ -362,6 +362,16 @@
     fastfile "0.0.20"
     ffjavascript "^0.2.48"
 
+"@layerzerolabs/lz-evm-oapp-v2@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@layerzerolabs/lz-evm-oapp-v2/-/lz-evm-oapp-v2-3.0.1.tgz#bb5d40c476c253bf67629f2cc5050ce05181fcfa"
+  integrity sha512-pzX86I85tSKjZJyh8u7AU4H/K5Mi49SHHVij8PwJOC/IpAFa4o6OGMpCbanF8wmP0jCjfa2NTEvXpQuEBTUBtQ==
+
+"@layerzerolabs/lz-evm-protocol-v2@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@layerzerolabs/lz-evm-protocol-v2/-/lz-evm-protocol-v2-3.0.1.tgz#50a961461db90cb87156b34e6c95598bbedbd20e"
+  integrity sha512-hFxsCJRYFgldt+GtG8bk0HGGdG8ZPoRtzFzAHDPud3fBI766jyAj2n2C07Nl3naOk9FXi8op9gmNi5A+wl1yhA==
+
 "@noble/curves@1.4.2", "@noble/curves@~1.4.0":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.4.2.tgz#40309198c76ed71bc6dbf7ba24e81ceb4d0d1fe9"
