@@ -43,6 +43,7 @@ contract VotingGovernance is Ownable {
         string[] memory _optionsArray
     ) external onlyAdmin {
         VotingTopic newVotingTopic = new VotingTopic(_votingTopic, _startTime, _endTime, _optionsArray);
+        allVotingTopics.push(address(newVotingTopic));
         emit NewVotingTopic(address(newVotingTopic), _votingTopic, _startTime, _endTime);
     }
 
