@@ -1,19 +1,35 @@
-'use client';
-import React, { useState } from 'react';
-import { SimpleGrid, Card, CardBody, CardFooter, Button, Text, Heading, Box, Flex, Image } from '@chakra-ui/react';
+"use client";
+import React, { useState } from "react";
+import {
+  SimpleGrid,
+  Card,
+  CardBody,
+  CardFooter,
+  Button,
+  Text,
+  Heading,
+  Box,
+  Flex,
+  Image,
+} from "@chakra-ui/react";
 
 interface VoteClashProps {
-  topicName: string; 
-  matches: Array<[string, bigint, string, bigint]>; 
+  topicName: string;
+  matches: Array<[string, bigint, string, bigint]>;
   randomizedArray: number[]; // The randomized array of indices
-  onFinish: (resultArray: number[]) => void; 
-//   onVote: (matchIndex: number, selectedOptionIndex: number) => void; // Callback function when an option is selected
+  onFinish: (resultArray: number[]) => void;
+  //   onVote: (matchIndex: number, selectedOptionIndex: number) => void; // Callback function when an option is selected
 }
 
-const VoteClash: React.FC<VoteClashProps> = ({ topicName, matches, randomizedArray, onFinish }) => {
+const VoteClash: React.FC<VoteClashProps> = ({
+  topicName,
+  matches,
+  randomizedArray,
+  onFinish,
+}) => {
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0); // Index to track the current match
   const [resultArray, setResultArray] = useState<number[]>([]); // Array to track results of each match
-  console.log(matches)
+  console.log(matches);
 
   const handleVote = (selectedOptionIndex: number) => {
     // Update the resultArray with the selected option (0 for optionOne, 1 for optionTwo)
@@ -30,12 +46,18 @@ const VoteClash: React.FC<VoteClashProps> = ({ topicName, matches, randomizedArr
   };
 
   const currentMatch = matches[currentMatchIndex];
-  console.log(currentMatch)
+  console.log(currentMatch);
 
   return (
     <Box padding={4} width="full">
       {currentMatch ? (
-        <Card border="1px solid #e2e8f0" borderRadius="lg" boxShadow="lg" margin="auto" width="50%">
+        <Card
+          border="1px solid #e2e8f0"
+          borderRadius="lg"
+          boxShadow="lg"
+          margin="auto"
+          width="50%"
+        >
           <CardBody>
             <Heading size="md" mb={4} textAlign="center">
               Match {currentMatchIndex + 1} of {matches.length}
@@ -50,10 +72,12 @@ const VoteClash: React.FC<VoteClashProps> = ({ topicName, matches, randomizedArr
                 textAlign="center"
                 cursor="pointer"
                 onClick={() => handleVote(0)} // Select option one (0)
-                _hover={{ bg: 'gray.100' }}
+                _hover={{ bg: "gray.100" }}
               >
                 <Image
-                  src={`/topics/${topicName.replaceAll(" ", "-")}/${currentMatch[0]}.jpg`}
+                  src={`/topics/${topicName.replaceAll(" ", "-")}/options/${
+                    currentMatch[0]
+                  }.jpg`}
                   alt={currentMatch[0]}
                   boxSize="100px" // Fixed size for image
                   objectFit="cover"
@@ -78,10 +102,12 @@ const VoteClash: React.FC<VoteClashProps> = ({ topicName, matches, randomizedArr
                 textAlign="center"
                 cursor="pointer"
                 onClick={() => handleVote(1)} // Select option two (1)
-                _hover={{ bg: 'gray.100' }}
+                _hover={{ bg: "gray.100" }}
               >
                 <Image
-                  src={`/topics/${topicName.replaceAll(" ", "-")}/${currentMatch[2]}.jpg`}
+                  src={`/topics/${topicName.replaceAll(" ", "-")}/options/${
+                    currentMatch[2]
+                  }.jpg`}
                   alt={currentMatch[2]}
                   boxSize="100px" // Fixed size for image
                   objectFit="cover"
@@ -101,6 +127,5 @@ const VoteClash: React.FC<VoteClashProps> = ({ topicName, matches, randomizedArr
     </Box>
   );
 };
-
 
 export default VoteClash;
