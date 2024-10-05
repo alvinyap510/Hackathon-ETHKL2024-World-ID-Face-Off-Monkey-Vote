@@ -162,3 +162,4 @@ contract VotingTopic is Ownable {
         return (votingTopic, startTime, endTime, options, faceOffPairs.length);
     }
 }
+
