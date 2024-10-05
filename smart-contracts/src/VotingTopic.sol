@@ -50,9 +50,7 @@ contract VotingTopic is Ownable {
 
     /*------ CONSTRUCTOR ------*/
 
-    constructor(string memory _votingTopic, uint256 _startTime, uint256 _endTime, string[] memory _optionsArray)
-        Ownable(msg.sender)
-    {
+    constructor(string memory _votingTopic, uint256 _startTime, uint256 _endTime, string[] memory _optionsArray) {
         require(_optionsArray.length <= 20, "VotingTopic: Too many options"); // 20 options will generate 190 face off pairs
         votingGovernance = IVotingGovernance(msg.sender);
         votingTopic = _votingTopic;

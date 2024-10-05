@@ -25,7 +25,7 @@ contract VotingGovernance is Ownable {
 
     /*------ CONSTRUCTOR ------*/
 
-    constructor(address _worldIdRouter) Ownable(msg.sender) {
+    constructor(address _worldIdRouter) {
         worldIdRouter = IWorldID(_worldIdRouter);
     }
 
