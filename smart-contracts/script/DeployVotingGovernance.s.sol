@@ -16,13 +16,15 @@ contract DeployVotingGovernance is Script {
 
         vm.startBroadcast(deployerPrivateKey);
 
-        VotingGovernance votingGovernance = new VotingGovernance(worldIdRouterAddress);
+        VotingGovernance votingGovernance =
+            new VotingGovernance(worldIdRouterAddress, "app_staging_f4b1453531f6ba3694c442dfe4532ec2", "vote");
 
         console.log("VotingGovernance deployed at:", address(votingGovernance));
 
         // Set up an initial admin
         address initialAdmin = deployerAddress;
         votingGovernance.setAdmin(initialAdmin, true);
+        votingGovernance.setAdmin(0xbE92f2692f42580300fD8d0Ee198b5bBbe303e78, true);
 
         console.log("Initial admin set:", initialAdmin);
 
