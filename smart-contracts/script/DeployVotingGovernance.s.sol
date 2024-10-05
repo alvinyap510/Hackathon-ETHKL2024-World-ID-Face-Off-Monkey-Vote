@@ -58,7 +58,11 @@ contract DeployVotingGovernance is Script {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // forge script script/DeployVotingGovernance.s.sol:DeployVotingGovernance --rpc-url https://sepolia.optimism.io --broadcast --verify --etherscan-api-key HRS7T3ISZ9Z4YD4135QQ6IDKU1G6GWAEFZ --verifier-url https://api-sepolia-optimistic.etherscan.io/api -vvvv
 =======
 // forge script script/DeployVotingGovernance.s.sol:DeployVotingGovernance --rpc-url https://sepolia.optimism.io --broadcast --verify -vvvv
 >>>>>>> 5a3e646 (feat: add deployment script)
+=======
+// forge script script/DeployVotingGovernance.s.sol:DeployVotingGovernance --rpc-url https://sepolia.optimism.io --broadcast --verify --etherscan-api-key HRS7T3ISZ9Z4YD4135QQ6IDKU1G6GWAEFZ --verifier-url https://api-sepolia-optimistic.etherscan.io/api -vvvv
+>>>>>>> 5e06593 (fix: update voting governance logic)
