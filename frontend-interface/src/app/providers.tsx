@@ -17,12 +17,14 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-const config = getDefaultConfig({
-  appName: 'AppName',
-  projectId: 'YOUR_PROJECT_ID',
-  chains: [optimismSepolia, scrollSepolia, mantaSepoliaTestnet],
-  // ssr: true, // If your dApp uses server side rendering (SSR)
-});
+import { config } from '@/configs/config';
+
+// const config = getDefaultConfig({
+//   appName: 'AppName',
+//   projectId: 'YOUR_PROJECT_ID',
+//   chains: [optimismSepolia, scrollSepolia, mantaSepoliaTestnet],
+// });
+
 
 const queryClient = new QueryClient();
 

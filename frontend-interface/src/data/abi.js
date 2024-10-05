@@ -1,4 +1,4 @@
-const abi = 
+export const VotingGovernance = 
 [
   {
     type: "constructor",
@@ -177,4 +177,4 @@ const abi =
   },
 ]
 
-export default abi;
+// export default VotingGovernance;
