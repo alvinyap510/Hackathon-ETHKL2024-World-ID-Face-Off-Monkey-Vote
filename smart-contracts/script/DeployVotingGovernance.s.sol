@@ -57,4 +57,10 @@ contract DeployVotingGovernance is Script {
     }
 }
 
+// OP Sepolia
 // forge script script/DeployVotingGovernance.s.sol:DeployVotingGovernance --rpc-url https://sepolia.optimism.io --broadcast --verify --etherscan-api-key HRS7T3ISZ9Z4YD4135QQ6IDKU1G6GWAEFZ --verifier-url https://api-sepolia-optimistic.etherscan.io/api -vvvv
+
+// Scroll Sepolia
+// forge script script/DeployVotingGovernance.s.sol:DeployVotingGovernance --rpc-url https://sepolia-rpc.scroll.io --broadcast --verify --etherscan-api-key 8654MU4RD3WIRD3QM342QG35BYDP9CVAEG --verifier-url https://api-sepolia.scrollscan.com/api -vvvv
+
+// Manta Sepolia

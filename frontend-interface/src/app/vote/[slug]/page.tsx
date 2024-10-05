@@ -21,7 +21,8 @@ import VotingTopic from "@/data/VotingTopic.json";
 import { readContract, writeContract } from "@wagmi/core";
 import { config } from "@/configs/config";
 import VoteClash from "@/components/VoteClash/VoteClash";
-import { contractAddresses } from "../../configs/config";
+import { contractAddresses } from "../../../configs/config";
+import { useChainId } from "wagmi";
 
 interface Option {
   optionName: string;
@@ -95,13 +96,17 @@ const VoteSlugPage: React.FC = () => {
 
   const [resultOptions, setResultOptions] = useState<Option[]>([]);
   const [loadingResults, setLoadingResults] = useState(false);
+
+  const chainId = useChainId();
+
   useEffect(() => {
     const fetchTopics = async () => {
       try {
         const topics = (await readContract(config, {
           abi: VotingGovernance.abi,
           //   address: "0xacd6336af0fAB0BD7F25a7edd53Ef581596306Af",
-          address: "0x900d06d92367cb53aF2e5C8D1dB07953B714a583",
+          // address: "0x900d06d92367cb53aF2e5C8D1dB07953B714a583",
+          address: contractAddresses.VotingGovernance[chainId],
           functionName: "getAllVotingTopics",
           args: [],
         })) as `0x${string}`[];
@@ -216,12 +221,12 @@ const VoteSlugPage: React.FC = () => {
 
     setLoadingResults(true);
     try {
-      const options = await readContract(config, {
+      const options = (await readContract(config, {
         abi: VotingTopic.abi,
-        address: votingTopicAddress  as `0x${string}`,
+        address: votingTopicAddress as `0x${string}`,
         functionName: "returnAllOptions",
         args: [],
-      }) as Option[];
+      })) as Option[];
 
       setResultOptions(options);
     } catch (error) {
@@ -230,7 +235,7 @@ const VoteSlugPage: React.FC = () => {
       setLoadingResults(false);
     }
   };
-  
+
   return (
     <div>
       <h1>Vote Page for {formattedSlug}</h1>
@@ -246,7 +251,11 @@ const VoteSlugPage: React.FC = () => {
             onFinish={handleFinishVoting}
           />
           {/* Button to fetch the latest results */}
-          <Button onClick={fetchLatestResults} isLoading={loadingResults} mt={4}>
+          <Button
+            onClick={fetchLatestResults}
+            isLoading={loadingResults}
+            mt={4}
+          >
             Show Latest Results
           </Button>
 
@@ -256,8 +265,11 @@ const VoteSlugPage: React.FC = () => {
               <Heading size="md">Latest Voting Results</Heading>
               {resultOptions.map((option, index) => {
                 const totalVotes = option.wins + option.loses;
-                const winRate = totalVotes > 0 ? (Number(option.wins) / Number(totalVotes)) * 100 : 0;
-                console.log(option)
+                const winRate =
+                  totalVotes > 0
+                    ? (Number(option.wins) / Number(totalVotes)) * 100
+                    : 0;
+                console.log(option);
                 return (
                   <Card key={index} mt={2}>
                     <CardBody>
