@@ -20,6 +20,8 @@ import VotingTopic from "../../data/VotingTopic.json";
 import { readContract } from "@wagmi/core";
 import { useState, useEffect } from "react";
 import { config } from "@/configs/config";
+import { useChainId } from "wagmi";
+import { contractAddresses } from "../../configs/config";
 
 interface Option {
   optionName: string;
@@ -39,6 +41,12 @@ export default function Topics() {
   const [topicDetails, setTopicDetails] = useState<TopicDetail[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // const { chain } = useNetwork(); // Get the current network information
+  // const chainId = chain.id;
+
+  const chainId = useChainId();
+  console.log("ChainID: ", chainId);
+
   useEffect(() => {
     // Fetching all voting topics from the contract
     const fetchTopics = async () => {
@@ -46,7 +54,8 @@ export default function Topics() {
         const topics = (await readContract(config, {
           abi: VotingGovernance.abi,
           // address: "0xacd6336af0fAB0BD7F25a7edd53Ef581596306Af",
-          address: "0x900d06d92367cb53aF2e5C8D1dB07953B714a583",
+          address: contractAddresses.VotingGovernance[chainId],
+          // address: contractAddresses.VotingGovernance[chainId],
           functionName: "getAllVotingTopics",
           args: [], // if the function requires arguments, add them here
         })) as `0x${string}`[]; // Explicitly casting the result to string[]

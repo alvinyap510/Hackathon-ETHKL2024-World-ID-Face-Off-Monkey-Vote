@@ -21,6 +21,7 @@ import VotingTopic from "@/data/VotingTopic.json";
 import { readContract, writeContract } from "@wagmi/core";
 import { config } from "@/configs/config";
 import VoteClash from "@/components/VoteClash/VoteClash";
+import { contractAddresses } from "../../configs/config";
 
 interface Option {
   optionName: string;
