@@ -1,2 +1,2 @@
-@openzeppelin/contracts=node_modules/@openzeppelin/contracts
-@worldcoin/world-id-contracts=node_modules/@worldcoin/world-id-contracts
+@openzeppelin/contracts=node_modules/@openzeppelin/contracts/
+@worldcoin/world-id-contracts=node_modules/@worldcoin/world-id-contracts/
