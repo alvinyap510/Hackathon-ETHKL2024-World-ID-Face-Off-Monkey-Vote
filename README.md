@@ -25,5 +25,5 @@ Our solution addresses this issue by implementing World ID Verification to ensur
 
 ## Links
 
-[Vercel Deployment](https://world-id-face-off-monkey-vote.vercel.app/vote)
+[Vercel Deployment](https://world-id-face-off-monkey-vote.vercel.app/)
 [Slides](https://www.canva.com/design/DAGSqfSftCU/q6adfc4G6cjJ8qjKzEldcw/edit?utm_content=DAGSqfSftCU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
